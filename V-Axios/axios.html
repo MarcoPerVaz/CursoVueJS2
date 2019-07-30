@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Respuesta JSON | Axios(ajax)</title>
+  <!-- Styles -->
+    <!-- Boostrap 3.3.7 -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+      integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+</head>
+<body>
+  <!-- Contenido -->
+    <div id="main" class="container">
+      <div class="col-12 text-center mb-4">
+        <h3>Lista VueJs - Ajax con Axios | CursoVueJs2 | <a href="/menu.html">Ir al Menú</a></h3>
+      </div>
+      <!-- Sitio web Random Users -->
+     <div class="row">
+       <div class="col-sm-7">
+         <h1>Lista VueJs - Ajax con Axios</h1>
+         <ul class="list-group">
+          <li v-for="item in lists" class="list-group-item">
+            <!-- Para el sitio web Random Users -->
+            <!-- {{ item.name.first }} {{ item.name.last }}  --> 
+            <!-- Para el sitio web jsonplaceholder -->
+            {{ item.name }}
+          </li>
+         </ul>
+       </div>
+       <div class="col-sm-5">
+         <h1>JSON</h1>
+         <pre>
+           {{ $data | json }}
+         </pre>
+       </div>
+     </div>
+    </div>
+  <!-- fin-contenido -->
+<!-- ----------------------------------------------------------------------------------------------------------------- -->
+  <!-- Scripts -->
+    <!-- VueJs 2 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.2.0/vue.js"></script>
+    <!-- Axios -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js"></script>
+  <!-- Trabajando con Vuejs -->
+  <script>
+    // var urlUsers = 'https://randomuser.me/api/?results=10'; //Sitio web https://randomuser.me
+    var urlUsers = 'https://jsonplaceholder.typicode.com/users'; //Sitio web https://jsonplaceholder.typicode.com/users
+    new Vue({
+      el: '#main',
+      created: function(){
+        this.getUsers();
+      },
+      data: {
+        lists:[],
+      },
+      methods: {
+        getUsers: function(){
+          axios.get(urlUsers).then(response => {
+            this.lists = response.data;
+          });
+        }
+      }
+    });
+  </script>
+</body>
+</html>
