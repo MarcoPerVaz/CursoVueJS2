@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Renderización de Listas | V-For</title>
+  <!-- Styles -->
+  <!-- Boostrap 3.3.7 -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+    integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+</head>
+<body>
+    <!-- Contenido -->
+    <div class="container">
+      <div class="row">
+        <div class="col-12 text-center mb-4">
+          <h3>Guía Commits | CursoVueJs2 | <a href="/menu.html">Ir al Menú</a></h3>
+        </div>
+        <div id="main">
+          <ul>
+            <!-- Opción 1: Se nota un parpadeo mostrando la interpolación {{ person }} al refrescar la página-->
+            <h5>Sin v-text</h5>
+            <li v-for="person in people">{{ person }}</li>
+            <hr>
+            <!-- Opción Recomendable: No da parpadeo al actualizar la página  -->
+            <h5>Con v-text</h5>
+            <li v-for="person in people" v-text="person"></li>
+          </ul>
+          <input type="text" name="" id="" v-model="name" v-on:keyup.enter="addName">
+        </div>
+      </div>
+    </div>
+  <!-- fin-contenido -->
+<!-- ----------------------------------------------------------------------------------------------------------------- -->
+  <!-- Scripts -->
+    <!-- VueJs 2 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.2.0/vue.js"></script>
+  <!-- Trabajando con Vuejs -->
+  <script>
+    new Vue({
+      el: '#main',
+      data: {
+        people: ['Lynda', 'Isabella', 'Diana', 'Luisa']
+      },
+      name: '',
+      methods: {
+        addName: function(){
+          this.people.push(this.name);
+          this.name = '';
+        }
+      }
+    });
+  </script>
+</body>
+</html>
