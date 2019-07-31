@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Componentes en Vue | Vue Component</title>
+  <!-- Styles -->
+    <!-- Boostrap 3.3.7 -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+      integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+</head>
+<body>
+  <!-- Contenido -->
+    <div id="main">
+      <div class="container">
+        <div class="row">
+          <div class="col-12 text-center mb-4">
+            <h3>Componentes | Vue Components <a href="/menu.html">Ir al Menú</a></h3>
+          </div>
+        </div>
+        <!-- Componentes en Vue -->
+        <!-- Sin componentes -->
+        <div class="row">
+          <div class="col-sm-4">
+            <h2>Albums</h2>
+            <ul class="list-group">
+              <li class="list-group-item" v-for="item in albums">
+                {{ item.title }}
+              </li>
+            </ul>
+          </div>
+          <div class="col-sm-4">
+            <h1>Posts</h1>
+            <ul class="list-group">
+              <li class="list-group-item" v-for="item in posts">
+                {{ item.title }}
+              </li>
+            </ul>
+          </div>
+        </div>
+        <!-- Con Componentes -->
+        <div class="row">
+          <div class="col-sm-4">
+            <h1>Posts</h1>
+            <common-list v-bind:lists="posts"></common-list>
+          </div>
+          <div class="col-sm-4">
+            <h1>Albums</h1>
+            <common-list v-bind:lists="albums"></common-list>
+          </div>
+          <div class="col-sm-4">
+            <h1>Photos</h1>
+            <common-list v-bind:lists="photos"></common-list>
+          </div>
+        </div>
+      </div>
+    </div>
+  <!-- fin-contenido -->
+<!-- ----------------------------------------------------------------------------------------------------------------- -->
+  <!-- Scripts -->
+    <!-- VueJs 2 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.2.0/vue.js"></script>
+    <!-- Axios -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js"></script>
+  <!-- Trabajando con Vuejs -->
+  <script>
+
+    // Component
+    Vue.component('common-list', {
+      props: ['lists'],
+      template: `<ul class="list-group">
+                  <li class="list-group-item" v-for="item in lists">
+                    {{ item.title }}
+                  </li>
+                </ul>`,
+    });
+    var urlPosts = 'https://jsonplaceholder.typicode.com/posts'; //Sitio web jsonplaceholder
+    var urlAlbums = 'https://jsonplaceholder.typicode.com/albums'; //Sitio web jsonplaceholder
+    new Vue({
+      el: '#main',
+      created: function() {
+        this.getPosts(),
+        this.getAlbums()
+      },
+      data: {
+       posts: [],
+       albums: [],
+       photos: [
+         {title: 'foto 1'},
+         {title: 'foto 2'},
+       ]
+      },
+      methods: {
+        getPosts: function(){
+          axios.get(urlPosts).then(response => {
+            this.posts = response.data;
+          });
+        },
+        getAlbums: function(){
+          axios.get(urlAlbums).then(response => {
+            this.albums = response.data;
+          });
+        },
+      }
+    });
+  </script>
+</body>
+</html>
