@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Eventos en Vue | Click, Submit, etc...</title>
+  <!-- Styles -->
+    <!-- Boostrap 3.3.7 -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+      integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+</head>
+<body>
+  <!-- Contenido -->
+    <div id="main">
+      <div class="container">
+        <!-- Eventos en Vue -->
+        <div class="row">
+          <div class="col-xs-12">
+              <h2>Eventos en Vuejs 2</h2>
+          </div>
+          <!-- Sin form -->
+          <div class="col-xs-4">
+            <div class="input-group">
+              <input type="text" name="" id="" class="form-control" v-model="name" v-on:keyup.enter="addName" 
+                     placeholder="Sin Form, eventos keyup y click">
+              <span class="input-group-btn">
+                <input type="button" value="add" class="btn btn-default" v-on:click="addName">
+              </span>
+            </div>
+            <!-- Con form  que hace lo mismo que los 2 eventos v-on de arriba(keyup y click) -->
+            <form action="" v-on:submit.prevent="addName">
+              <div class="input-group">
+                <input type="text" name="" id="" class="form-control" v-model="name" placeholder="Con Form, evento submit">
+                <span class="input-group-btn">
+                  <input type="submit" value="add" class="btn btn-default">
+                </span>
+              </div>
+            </form>
+            <hr>
+            <ul class="list-group">
+              <li class="list-group-item" v-for="item in people" v-text="item"></li>
+            </ul>
+          </div>
+          <div class="col-xs-4">
+            <button v-on:click="num += 1">
+              {{ num }} <i class="glyphicon glyphicon-thumbs-up"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  <!-- fin-contenido -->
+  <!-- Link Regresar -->
+  <div class="col-12">
+    <a href="/index.html">Regresar al Menú</a>
+  </div>
+<!-- ----------------------------------------------------------------------------------------------------------------- -->
+  <!-- Scripts -->
+    <!-- VueJs 2 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.2.0/vue.js"></script>
+  <!-- Trabajando con Vuejs -->
+  <script>
+    new Vue({
+      el: '#main',
+      data: {
+        people: ['Lynda', 'Isabella', 'Abel', 'Diana'],
+        name: '',
+        num: 0,
+      },
+      methods: {
+        addName: function(){
+          this.people.unshift(this.name); //Agrega el valor al principio de la lista
+          this.people.push(this.name); //Agrega el valor al final de la lista
+          this.name = '';
+        }
+      }
+    });
+  </script>
+</body>
+</html>
