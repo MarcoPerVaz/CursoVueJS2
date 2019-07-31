@@ -1,0 +1,185 @@
+Commit - Configuración del archivo .gitignore
+  -Agregando el archivo index.html
+  -Agregando la carpeta Instrucciones
+<-----VueJs 2----->
+Commit - Renderización de Listas | V-For
+  -Se crea la carpeta V-For y dentro el archivo lista.html
+    -En el archivo HTML:
+      -Se usa la directiva v-model para obtener el valor de una variable desde vue
+      -Se usa la directiva v-on:keyup.enter para capturar cuando el usuario presiona enter
+      -Se crea una función llamada addname referenciada al evento keyup del input
+        -Al dar enter lo que esté escrito será agregado al array people
+Commit  - Vinculación de datos(Data Binding) | V-BIND
+  -Se crea la carpeta V-Bind y dentro el archivo v-bind.html
+    -Se usa la directiva v-model="info"
+    -Se usa la directiva v-bind:title="info" para enlazar lo que contenga el input hacía el title del elemento html
+      -Dónde title es un atributo del elemento input
+Commit  - Manejo de respuesta JSON | Vue-Resource(ajax) 
+  -Se crea una carpeta llamada V-Resource y dentro el archivo llamado ajax.html
+  -Se importa el CDN desde el sitio
+    -https://cdnjs.com/
+  -Se busca vue resource y se copia el link del CDN
+    -https://cdnjs.cloudflare.com/ajax/libs/vue-resource/1.5.1/vue-resource.min.js
+  -Se agrega el cdn al archivo ajax.html
+  -Se importa el CDN de boostrap 3.3.7 desde su sitio web
+    -https://getbootstrap.com/docs/3.3/getting-started/
+  -Se agrega el link al archivo ajax.html
+  Nota: Se usa el sitio web Random User para obtener información y simular que se obtienen datos de una Base de Datos pero en formato Json
+    -https://randomuser.me/documentation#results
+  -Se copia el enlace desde Requesting Multiple Users y se pega en una pestaña del navegador
+    -https://randomuser.me/api/?results=10
+  -Se crea la función getUsers para obtener a los usuarios del sitio Random Users
+  -Se da uso de Vue Resource
+    -this.$http.get(urlUsers).then(function (response){
+      this.lists = response.data
+    }
+      -Dónde urlUsers es la url https://randomuser.me/api/?results=10
+  Nota: Se usa created que es una propiedad de ciclo de vida de Vue 
+    -Osea significa que al crearse la instancia de vue se ejecute el método getUsers();
+      -created: function(){
+        this.getUsers();
+      },
+  Nota: Se usa otro sitio web jsonplaceholder para obtener información y simular que se obtienen datos de una Base de Datos pero en formato Json
+    -https://jsonplaceholder.typicode.com/
+  -Se clickea en el apartado Resources en la parte de /users
+    -Se obtiene la url de los datos Json
+      -https://jsonplaceholder.typicode.com/users
+Commit  - Manejo de respuesta JSON | Axios(ajax)
+  -Se crea una carpeta llamada V-Axios y dentro el archivo llamado axios.html
+  -Se importa el CDN desde el sitio
+    -https://cdnjs.com/
+  -Se busca axios y se copia el link del CDN
+    -https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js
+  -Se agrega el cdn al archivo ajax.html
+  -Se importa el CDN de boostrap 3.3.7 desde su sitio web
+    -https://getbootstrap.com/docs/3.3/getting-started/
+  -Se crea la función getUsers para obtener a los usuarios del sitio Random Users
+  -Se da uso de Axios
+    -axios.get(urlUsers).then(response => {
+        this.lists = response.data;
+      });
+      -Dónde urlUsers es la url https://randomuser.me/api/?results=10
+  Nota: Se usa created que es una propiedad de ciclo de vida de Vue 
+    -Osea significa que al crearse la instancia de vue se ejecute el método getUsers();
+      -created: function(){
+        this.getUsers();
+      },
+  Nota: Se usa otro sitio web jsonplaceholder para obtener información y simular que se obtienen datos de una Base de Datos pero en formato Json
+    -https://jsonplaceholder.typicode.com/
+  -Se clickea en el apartado Resources en la parte de /users
+    -Se obtiene la url de los datos Json
+      -https://jsonplaceholder.typicode.com/users
+<-----Laravel y Vue----->
+Commit  - Creación de Proyecto Laravel de nombre Laravel(5.4)-vue
+  Nota:Para poder ver el proyecto en el navegador tengo que correrlo con php artisan serve ya que laragon está siendo usado por www
+  -composer create-project --prefer-dist laravel/laravel Laravel5.4-vue "5.4.*"
+Commit  - Pequeña Introducción a Laravel con Vuejs 2
+  -Se edita la vista welcome.blade.php
+    -Se copia el cdn de Bootstrap del archivo V-Axios/axios.html
+    -Se copa el contenido del archivo V-Axios/axios.html
+    -Se copian los cdn de scripts(vuejs y axios) del archivo V-Axios/axios.html
+  -Se edita el archivo public/js/app.js
+    -Se borra todo y se reemplaza por el contenido del script de Vue que está en el archivo V-Axios/axios.html
+  Nota: Para diferenciar las interpolaciones {{  }} entre laravel y vue se usa:
+    -@{{ item.name }} para la interpolación de laravel
+  -Se crea la ruta users en web.php
+    -Devolviendo un array estático
+  -Se crea una Base de Datos (se creó en Laragon) con el nombre laravel5.4-vue
+  -Se configura el archivo .env
+    -DB_DATABASE=laravel5.4-vue
+     DB_USERNAME=root
+     DB_PASSWORD=
+  -Se crea un seeder usando el comando 
+    -php artisan make:seeder UsersTablesSeeder 
+  -Se registra el nuevo seeder en el archivo DatabaseSeeder.php(en este caso solo se descomento)
+  -En la función run de UsersTablesSeeder se crea un factory asociado al archivo ModelFactory.php
+    -factory(User::class, 25)->create();
+    Nota: No olvidar importar el trait del modelo User
+      -use App\User;
+  -Se usa el comando php artisan migrate:refresh --seed
+  Nota: En el curso salió el error Specified key was too long error visto en el curso Laravel-5.4-Ajax-JQuery 
+    Nota: Sólo sucede si se usa MariaDB(Xampp, Wampp, Mamp), en Laragon funciona sin problemas
+    -Solución: ir a app/Providers y en AppServiceProvider.php
+        -Importar el Facade Schema
+          -use Illuminate\Support\Facades\Schema;
+        -Modificar la función boot 
+          public function boot()
+            {
+                Schema::defaultStringLength(191);
+            }
+        -Se borran las tablas manualmente del gestor de Base de Datos
+        -Se usa el comando php artisan migrate:install
+        -Se usa el comando php artisan migrate:refresh
+        -Listo.
+  -Se importa el modelo User en el archivo web.php
+  Nota: En este punto tuve que salir de php artisan serve y volverlo a ejecutar
+<-----Vuejs 2----->
+Commit - Directiva Condicional | V-Show
+  -Se crea la carpeta V-Show y dentro el archivo v-show.html
+  -Se usa la directiva v-model="email" para vincular con la variable email creada con vuejs
+  -Se usa la directiva v-show para mostrar el botón sólo si el input contiene algo
+Commit - Directiva Condicional | V-If  V-Else  Template
+  -Se crea la carpeta V-If,V-Else,Template y dentro el archivo v-if.html
+  -Se usa la directiva v-model para vincular con la variable message creada con vuejs
+  -Se usa la directiva v-if="message" para comprobar si el textarea no está vacío y mostrar Presiona ENTER para enviar
+  -Se usa la directiva v-else="message" para comprobar el v-if que tenga encima y hacer lo contrario
+    Nota: Se usa en lugar de v-if="message"
+  -Se usa la etiqueta <template></template> para poder usar directivas a bloques de HTML
+Commit - Eventos | Click, Submit, Keyup, Etc...
+  -Se crea la carpeta Vue-Eventos y dentro el archivo eventos.html
+  -Se usa la directiva v-for para recorrer un array que está en Vuejs
+  -Se usa la directiva v-text para imprimir el array(item) obtenido a tráves del v-for
+  -Se crea el evento v-on:click="addName" que vincula el evento click con la función/método addName usada con Vue
+  -Se crea el método addName en Vue
+  -Se usa la directiva v-model="name" para vincular con la variable name usada en Vue
+  -Se crea el evento v-on:keyup="addName" vinculando el evento al soltar una tecla al método addName hecho en Vue
+    Nota: Para especificar la tecla que activará el evento se usa v-on:keyup.enter="addName"
+  -Se agrega una etiqueta form con el evento de Vue agregando todo lo que se había hecho antes de este paso
+    Nota: Lleva lo siguiente <form action="" v-on:submit.prevent="addName">
+      -Dónde submit es para enviar el formulario y prevent para no recargar la página
+  -Se crea el evento click v-on:click="num += 1" que sumará uno independientemente que valor tenga num
+    -Dónde num es variable creada en Vue
+Commit - Filtros | Computed Properties
+  Nota: Acá se usa la librería Axios
+  -Se crea la carpeta llamada Vue-Filtros y dentro el archivo llamado filtros.html
+  -Se crea el evento click vinculando el método getUsers
+    -v-on:click="getUsers"
+  -Se usa la directiva V-For para recorrer el array lists obtenido a tráves del sitio web e implementado por Axios
+  -Se usa la directiva V-If para condicionar si se muestra el botón Listar
+  -Se usa la directiva V-If para condicionar si se muestra el array lists
+  -Se crea la propiedad computada para filtrar los nombres del array lists[]
+  -Se cambia el V-For
+    -Esto: v-for="item in lists"
+    -Por esto: v-for="item in searchUser" para hacer uso de la Propiedad Computada
+Commit - Componentes | Vue Components
+  Nota: Acá se usa la librería Axios
+  -Se crea la carpeta Vue-Componentes y dentro el archivo component.html
+  -Se usa la directiva V-For para recorrer el array albums hecho en Vue
+  -Se usa la directiva V-For para recorrer el array posts hecho en Vue
+  -Se usa la directiva V-Bind para vincular la propiedad (props) lists al array correspondiente (posts y albums)
+  Nota: Los componentes ayudan a no tener que repetir lenguaje HTML
+<-----Workshop----->
+Commit - Estructura HTML | Datos Estáticos
+  -Se crea la carpeta WorkshopVueJs2 y dentro el archivo index.html
+  -Se estructura el html de index.html
+Commit - Estructura HTML | Datos Dinámicos
+  -Se crea el archivo script.js para trabajar con Vue
+  -Se vincula el html(index.html) con javascript(script.js)
+  -Se usa la directiva V-For para listar el array lists[] hecho en Vue
+  -Se usa la directiva V-Bind para desactivar u activar dependiendo si completed es false o true
+    -v-bind:class="item.completed == true ? 'disabled' : ''"
+Commit - Elementos a La Lista | Directivas, métodos
+  -Se crea el archivo script.js dentro de la carpeta WorkshopVueJs2
+  -Se vincula Vue y el archivo recien creado (script.js) al html index.html
+  -Se usa la directiva V-Model para vincular el input a la data newKeep
+  -Se crea el evento keyup.enter en el input text para vincular con el método addKeep hecho en Vue
+  -Se crea el método addKeep en Vue
+  -Se usa @click="item.completed = ! item.completed" como forma rápida de crear el evento click 
+   y cambiando lo contario de lo que tenga item.completed, si es false lo pasa a true y viceversa
+  -Se usa la directiva V-If
+    -Dónde v-if="lists.length > 0" la lognitud del array lists sea mayor a cero
+  -Se usa la directiva V-Else para mostrar otro texto si lists.length es igual a cero
+    -v-else="lists"
+Commit - Fix | Errores en títulos de páginas
+Commit - Configuración de .gitignore
+Fin.
