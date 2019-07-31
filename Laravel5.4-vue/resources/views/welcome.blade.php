@@ -21,7 +21,7 @@
             {{-- Sitio web Random Users --}}
             <div class="row">
                 <div class="col-12 text-center mb-4">
-                    <h3>Lista VueJs - Ajax con Axios | CursoVueJs2 | <a href="https://cursovuejs2.it/menu.html">Ir al Menú</a></h3>
+                    <h3>Miniproyecto con Axios | CursoVueJs2 | <a href="https://cursovuejs2.it/menu.html">Ir al Menú</a></h3>
                 </div>
                 <div class="col-sm-7">
                     <h1>Lista VueJs - Ajax con Axios</h1>
