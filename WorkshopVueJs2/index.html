@@ -12,17 +12,27 @@
 </head>
 <body>
   <!-- Contenido -->
+  <div class="container">
+    <div class="row">
+      <div class="col-12 text-center mb-4">
+        <h3>Workshop | CursoVueJs2 | <a href="/menu.html">Ir al Menú</a></h3>
+      </div>
+    </div>
+  </div>
   <div id="appVue">
     <div class="container">
       <div class="row">
         <div class="col-sm-6">
-          <h1>Agregar una tarea</h1>
-          <input type="text" name="" id="" class="form-control">
+        <h1 v-if="lists.length > 0">Agregar una tarea</h1>
+        <h1 v-else="lists">Crear una tarea</h1>
+          <input type="text" name="" id="" class="form-control" v-model="newKeep" v-on:keyup.enter="addKeep">
         </div>
         <div class="col-sm-6">
-          <h1>Lista de tareas</h1>
+          <h1 v-if="lists.length > 0">Listado de tareas</h1>
+          <h1 v-else="lists">No hay tareas registradas</h1>
           <ul class="list-group">
-            <li class="list-group-item" v-for="item in lists" v-bind:class="item.completed == true ? 'disabled' : ''">
+            <li class="list-group-item" 
+                v-for="item in lists" v-bind:class="item.completed == true ? 'disabled' : ''" @click="item.completed = ! item.completed">
               {{ item.keep }}
             </li>
           </ul>
