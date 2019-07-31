@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Directiva Condicional | V-If, V-Else y Template</title>
+  <!-- Styles -->
+    <!-- Boostrap 3.3.7 -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+      integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+</head>
+<body>
+  <!-- Contenido -->
+    <div id="main">
+      <div class="container">
+        <div class="col-12 text-center mb-4">
+          <h3>V-If-V-Else-Template | CursoVueJs2 | <a href="/menu.html">Ir al Menú</a></h3>
+        </div>
+        <!-- V-If -->
+        <div class="row">
+          <div class="col-md-5">
+            <h3 v-if="!message">Escribe tu sugerencia</h3>
+            <h3 v-if="message">Presiona ENTER para enviar</h3>
+            <textarea name="" id="" cols="30" rows="10" class="form-control" v-model="message"></textarea>
+          </div>
+          <div class="col-md-7">
+            <h3>JSON</h3>
+            <pre>
+              {{ $data }}
+            </pre>
+          </div>
+        </div>
+        <!-- V-If | V-Else -->
+        <div class="row">
+          <div class="col-md-5">
+            <h3 v-if="!message">Escribe tu sugerencia</h3>
+            <h3 v-else="message">Presiona ENTER para enviar</h3>
+            <textarea name="" id="" cols="30" rows="10" class="form-control" v-model="message"></textarea>
+          </div>
+          <div class="col-md-7">
+            <h3>JSON</h3>
+            <pre>
+              {{ $data }}
+            </pre>
+          </div>
+        </div>
+        <!-- Template -->
+        <div class="row">
+          <div class="col-md-5">
+            <template v-if="!message">
+              <h3>Escribe tu sugerencia</h3>
+              <p>El equipo de soporte responde en máximo 24 horas</p>
+              <p><em>Podrías utilizar Twitter para comunicarte</em></p>
+            </template>
+            <h3 v-else="message">Presiona ENTER para enviar</h3>
+            <textarea name="" id="" cols="30" rows="10" class="form-control" v-model="message"></textarea>
+          </div>
+          <div class="col-md-7">
+            <h3>JSON</h3>
+            <pre>
+              {{ $data }}
+            </pre>
+          </div>
+        </div>
+      </div>
+    </div>
+  <!-- fin-contenido -->
+<!-- ----------------------------------------------------------------------------------------------------------------- -->
+  <!-- Scripts -->
+    <!-- VueJs 2 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.2.0/vue.js"></script>
+  <!-- Trabajando con Vuejs -->
+  <script>
+    new Vue({
+      el: '#main',
+      data: {
+        message: '',
+      }
+    });
+  </script>
+</body>
+</html>
